@@ -17,4 +17,16 @@ public class Price {
     Integer priority;
     BigDecimal price;
     String curr;
+
+    public boolean isValidForDate(LocalDateTime applicationDate) {
+        return !applicationDate.isBefore(startDate) && !applicationDate.isAfter(endDate);
+    }
+
+    public boolean isValidForProduct(Long productId) {
+        return this.productId.equals(productId);
+    }
+
+    public boolean isValidForBrand(Long brandId) {
+        return this.brandId.equals(brandId);
+    }
 }
