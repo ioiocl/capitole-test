@@ -8,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
     componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface PriceMapper {
+public interface PriceMapper extends PriceMapperInterface {
     Price toDomain(PriceEntity entity);
     PriceEntity toEntity(Price domain);
 }

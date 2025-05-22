@@ -62,7 +62,7 @@ class PriceControllerTest {
                 .thenReturn(priceResponse);
 
         // When/Then
-        mockMvc.perform(get("/api/v1/prices")
+        mockMvc.perform(get("/api/prices")
                 .param("brandId", "1")
                 .param("productId", "35455")
                 .param("applicationDate", "2020-06-14T10:00:00"))
@@ -79,7 +79,7 @@ class PriceControllerTest {
                 .thenReturn(Optional.empty());
 
         // When/Then
-        mockMvc.perform(get("/api/v1/prices")
+        mockMvc.perform(get("/api/prices")
                 .param("brandId", "1")
                 .param("productId", "35455")
                 .param("applicationDate", "2020-06-14T10:00:00"))
@@ -88,7 +88,7 @@ class PriceControllerTest {
 
     @Test
     void shouldReturn400WhenInvalidDate() throws Exception {
-        mockMvc.perform(get("/api/v1/prices")
+        mockMvc.perform(get("/api/prices")
                 .param("brandId", "1")
                 .param("productId", "35455")
                 .param("applicationDate", "invalid-date"))

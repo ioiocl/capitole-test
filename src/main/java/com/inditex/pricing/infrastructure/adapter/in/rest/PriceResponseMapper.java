@@ -8,6 +8,6 @@ import org.mapstruct.ReportingPolicy;
     componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface PriceResponseMapper {
+public interface PriceResponseMapper extends PriceResponseMapperInterface {
     PriceResponse toResponse(Price price);
 }

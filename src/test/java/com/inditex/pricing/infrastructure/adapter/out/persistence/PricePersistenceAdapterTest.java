@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -68,5 +69,65 @@ class PricePersistenceAdapterTest {
 
         assertThat(price).isPresent();
         assertThat(price.get().getPriceList()).isEqualTo(4L);
+    }
+
+    @Test
+    void shouldFindPriceForDifferentProduct() {
+        // Given
+        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T16:00:00");
+        Long brandId = 1L;
+        Long productId = 35456L;
+
+        // When
+        Optional<Price> price = adapter.findPrice(brandId, productId, applicationDate);
+
+        // Then
+        assertThat(price).isPresent();
+        assertThat(price.get().getPrice()).isEqualByComparingTo(new BigDecimal("35.45"));
+        assertThat(price.get().getPriceList()).isEqualTo(6L);
+    }
+
+    @Test
+    void shouldFindPriceForDifferentBrand() {
+        // Given
+        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
+        Long brandId = 2L;
+        Long productId = 35455L;
+
+        // When
+        Optional<Price> price = adapter.findPrice(brandId, productId, applicationDate);
+
+        // Then
+        assertThat(price).isPresent();
+        assertThat(price.get().getPrice()).isEqualByComparingTo(new BigDecimal("55.50"));
+        assertThat(price.get().getPriceList()).isEqualTo(7L);
+    }
+
+    @Test
+    void shouldNotFindPriceForNonExistentProduct() {
+        // Given
+        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
+        Long brandId = 1L;
+        Long productId = 99999L;
+
+        // When
+        Optional<Price> price = adapter.findPrice(brandId, productId, applicationDate);
+
+        // Then
+        assertThat(price).isEmpty();
+    }
+
+    @Test
+    void shouldNotFindPriceForNonExistentBrand() {
+        // Given
+        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14T10:00:00");
+        Long brandId = 99L;
+        Long productId = 35455L;
+
+        // When
+        Optional<Price> price = adapter.findPrice(brandId, productId, applicationDate);
+
+        // Then
+        assertThat(price).isEmpty();
     }
 }

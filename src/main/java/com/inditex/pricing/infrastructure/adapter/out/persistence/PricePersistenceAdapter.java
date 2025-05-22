@@ -13,12 +13,12 @@ import java.util.Optional;
 public class PricePersistenceAdapter implements LoadPricePort {
 
     private final PriceRepository priceRepository;
-    private final PriceMapper priceMapper;
+    private final PriceMapperInterface mapper;
 
     @Override
     public Optional<Price> findPrice(Long brandId, Long productId, LocalDateTime applicationDate) {
         return priceRepository
                 .findTopByBrandIdAndProductIdAndDateOrderByPriorityDesc(brandId, productId, applicationDate)
-                .map(priceMapper::toDomain);
+                .map(mapper::toDomain);
     }
 }
