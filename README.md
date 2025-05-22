@@ -140,16 +140,3 @@ El proyecto usa:
 - Flyway para migraciones
 - Consola H2 disponible en `/h2-console`
 
-## Estructura del Proyecto
-
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/inditex/pricing/
-│   └── resources/
-│       ├── application.properties
-│       └── db/migration/
-│           ├── V1__create_prices_table.sql
-│           └── V2__insert_initial_data.sql
-```
